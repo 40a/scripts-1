@@ -40,7 +40,8 @@ else
   for line in $indices_list
   do
     echo -n $line
-    index_timestamp=$($curl $es_url"/"$line"/_settings?pretty" | $grep '(?:creation_date.*)\d{13}.*' | $grep '\d{10}')
+#    index_timestamp=$($curl $es_url"/"$line"/_settings?pretty" | $grep '(?:creation_date.*)\d{13}.*' | $grep '\d{10}')     # Get creation date from index settings
+    index_timestamp=$(date --date="`echo $line | sed -r 's/(.*)([0-9]{4})\.([0-9]{2})\.([0-9]{2})/\2-\3-\4/g'`" +"%s")      # Get creation date from index name
     if [[ ! $index_timestamp || ! $index_timestamp =~ ^[0-9]+$ ]]; then echo "Cannot get index  $line creation date ($index_timestamp). Aborting."; echo "FAIL" > $result_file; exit 1; fi
     if [[ "$index_timestamp" -lt "$border_timestamp" ]]; then
     echo -n " - need to be deleted - ";
