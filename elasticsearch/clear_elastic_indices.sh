@@ -24,7 +24,7 @@ grep="/bin/grep -Po"
 sed="/bin/sed -r"
 curl="/usr/bin/curl -s"
 index_regex='\S+-\d\d\d\d\.\d\d\.\d\d'              # Regex for search indices. Only indices under this mask will be checked.
-result_file='/tmp/clear_elastic_insices.status'     # File to store result of clearance. Used for Zabbix integration.
+result_file='/tmp/clear_elastic_indices.status'     # File to store result of clearance. Used for Zabbix integration.
 
 # Check input variables
 if [[ -z $1 ]]; then echo "No keys provided, exiting. Usage: clear_elastic_indices.sh days_to_left [--delete]"; echo "FAIL" > $result_file; exit 1; fi
