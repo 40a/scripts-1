@@ -23,7 +23,7 @@ es_url="localhost:9200"
 grep="/bin/grep -Po"
 sed="/bin/sed -r"
 curl="/usr/bin/curl -s"
-index_regex='\S+-\d\d\d\d\.\d\d\.\d\d'              # Regex for search indices. Only indices under this mask will be checked.
+index_regex='^[a-zA-Z-]+-\d\d\d\d\.\d\d\.\d\d'      # Regex for search indices. Only indices under this mask will be checked.
 result_file='/tmp/clear_elastic_indices.status'     # File to store result of clearance. Used for Zabbix integration.
 
 # Check input variables
@@ -33,7 +33,7 @@ if [[ ! -z $2 && "$2" == "--delete" ]]; then delete="true"; else delete="false";
 
 # All indices older than $border_timestamp will be deleted
 border_timestamp=$(date -d `date +"%Y-%m-%d" --date="$days_to_left days ago"` +"%s")
-indices_list=$($curl $es_url"/_cat/indices" | $grep $index_regex | sort -n)
+indices_list=$($curl $es_url"/_cat/indices?h=index" | $grep $index_regex | sort -n)
 
 if [[ ! $indices_list ]]; then echo "Can not get indices list."; echo "FAIL" > $result_file; exit 1;
 else
