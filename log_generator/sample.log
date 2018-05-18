@@ -1,0 +1,2 @@
+[{0}] INFO  [CreateInvoiceQueue-0-95] [QUEUE/CreateInvoiceQueue/1105230242] [7a7532727cbc47fd] [] [CreateInvoiceQueueDaemon]
+Start processing: CreateInvoiceTaskAbstractTasktaskID=1105230242, status=PROCESSING
