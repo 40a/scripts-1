@@ -23,19 +23,26 @@ if __name__ == '__main__':
     if args.verbose:
         print args
 
+    if args.mode == 'time' and args.time == 0:
+        print "Time to work is not set."
+        exit(1)
+    elif args.mode == 'count' and args.count == 0:
+        print "Count of records to produce is not set."
+        exit(2)
+
     sample = None
     output = None
     try:
         sample = open(args.input_file, 'r').read()
     except Exception as e:
         print "Can't open input file:", e
-        exit(1)
+        exit(3)
 
     try:
         output = open(args.output_file, 'w')
     except Exception as e:
         print "Can't open output file:", e
-        exit(2)
+        exit(4)
 
     timestart = time.time()
     i = 0
@@ -50,4 +57,4 @@ if __name__ == '__main__':
             i += 1
             time.sleep(args.delay)
 
-    print 'Generation done.\nLines has been generated:', i, '\nTime spent:', round(time.time()-timestart, 3)
+    print 'Generation done.\nLines has been generated:', i, '\nTime spent:', round(time.time()-timestart, 3), 'sec.'
